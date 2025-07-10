@@ -1,7 +1,7 @@
 // Ganti token dan chat_id sesuai milik Anda
 const TELEGRAM_CONFIG = {
     botToken: '7934148483:AAFdxbZxUBqZsPSB4xfko4CQgmrg_jJ6ZuE',
-    chatIds: ["7160773412", "ISI_CHAT_ID_2"]
+    chatIds: ["7160773412", "7323363406"]
 };
 
 // Mendapatkan IP Address
